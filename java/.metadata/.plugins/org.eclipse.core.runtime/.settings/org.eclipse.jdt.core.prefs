@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8
+org.eclipse.jdt.core.compiler.compliance=1.8
+org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+org.eclipse.jdt.core.compiler.source=1.8
+org.eclipse.jdt.core.timeoutForParameterNameFromAttachedJavadoc=50
+org.eclipse.jdt.core.userLibrary.Selenium2=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n\t<archive path\="/HeroesWMBot/libs/selenium-server-standalone-3.4.0.jar" sourceattachment\="E\:/HwmGameTest/selenium/java/client/src"/>\r\n</userlibrary>\r\n
+org.eclipse.jdt.core.userLibrary.test=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<userlibrary systemlibrary\="false" version\="2">\r\n</userlibrary>\r\n

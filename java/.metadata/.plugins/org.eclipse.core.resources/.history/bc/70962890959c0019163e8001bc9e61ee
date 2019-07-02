@@ -1,0 +1,161 @@
+import java.io.*;
+import java.util.*;
+
+public class SolutionBashni {
+	private static final int INVALID_PATH = -1;
+	
+	public static void main(String[] args) throws IOException {
+		new SolutionBashni().run();
+	}
+
+	private StreamTokenizer in;
+	private PrintWriter out;
+
+	int nextInt() throws IOException {
+		in.nextToken();
+		return (int) in.nval;
+	}
+
+	void run() throws IOException {
+		in = new StreamTokenizer(new BufferedReader(new FileReader("input.txt")));
+		out = new PrintWriter(new FileWriter("output.txt"));
+		solve();
+		out.flush();
+	}
+
+	private static class WaveInfo {
+		int vertexNumber;
+		int distanceFromStart;
+
+		public WaveInfo(int number, int distance) {
+			vertexNumber = number;
+			distanceFromStart = distance;
+		}
+		
+		static Comparator<WaveInfo> minimalKnownPath = new Comparator<WaveInfo>() {
+
+			@Override
+			public int compare(WaveInfo o1, WaveInfo o2) {
+				return o1.distanceFromStart - o2.distanceFromStart;
+			}
+		};
+		
+		static Comparator<WaveInfo> sortByVertexNumber = new Comparator<WaveInfo>() {
+
+			@Override
+			public int compare(WaveInfo o1, WaveInfo o2) {
+				return o1.vertexNumber - o2.vertexNumber;
+			}
+		};
+	}
+
+	ArrayList<Set<Integer>> edges;
+
+	void solve() throws IOException {
+		int n = nextInt();
+		int m = nextInt();
+
+		edges =  new ArrayList<>(n+1);
+		for (int i = 0; i <= n; i++) {
+			edges.add(i, null);
+		}
+		for (int i = 0; i < m; i++) {
+			int u = nextInt();
+			int v = nextInt();
+			Set<Integer> uSet = edges.get(u);
+			if (uSet == null)  {
+				uSet = new HashSet<>();
+				edges.set(u, uSet);
+			}
+			Set<Integer> vSet = edges.get(v);
+			if (vSet == null)  {
+				vSet = new HashSet<>();
+				edges.set(v, vSet);
+			}
+			
+			uSet.add(v);
+			vSet.add(u);
+		}
+
+		int p = nextInt();
+		PriorityQueue<WaveInfo> wavesQueue = new PriorityQueue<WaveInfo>(n, WaveInfo.minimalKnownPath);
+		PriorityQueue<WaveInfo> answer = new PriorityQueue<>(n, WaveInfo.sortByVertexNumber);
+		
+		for (int vertex = 1; vertex <= n; vertex++) {
+			wavesQueue.add(new WaveInfo(vertex, vertex != p ? Integer.MAX_VALUE : 0));
+		}
+
+		// wave algorithm
+		int currentWave = 0;
+		while (wavesQueue.isEmpty() == false) {
+			List<WaveInfo> visitingList = new LinkedList<>();
+			while (wavesQueue.isEmpty() == false && wavesQueue.peek().distanceFromStart == currentWave) {
+				visitingList.add(wavesQueue.poll());
+			}
+			
+            if (visitingList.isEmpty()) {
+                // write answer for unaccessible vertexes
+            	wavesQueue.stream()
+            	.forEach(wave -> wave.distanceFromStart = INVALID_PATH);
+            	answer.addAll(wavesQueue);
+            }
+
+            List<WaveInfo> toProcess = new LinkedList<>();
+			for (WaveInfo visiting : visitingList) {
+				Iterator<WaveInfo> it = wavesQueue.iterator();
+				while (it.hasNext()) {
+					WaveInfo info = it.next();
+					if (info.distanceFromStart == Integer.MAX_VALUE) {
+						int first = visiting.vertexNumber;
+						int second = info.vertexNumber;
+
+						if (edges.get(first) == null || edges.get(first).contains(second) == false) {
+							info.distanceFromStart = currentWave + 1;
+							toProcess.add(info);
+							it.remove();
+						}
+					}
+				}
+
+				if (visiting.vertexNumber != p) {
+					answer.add(visiting);
+				}
+			}
+			wavesQueue.addAll(toProcess);
+
+			currentWave++;
+		}
+
+		//answer.poll(); // this is our starting vertex
+		StringBuilder sb = new StringBuilder();
+		
+		while (answer.isEmpty() == false) {
+			sb.append(answer.poll().distanceFromStart).append(" ");
+		}
+		
+		out.print(sb.toString());
+	}
+	
+	void hardTest() throws IOException {
+		PrintWriter stream = new PrintWriter(new FileWriter("input.txt"));
+		stream.println("100000 120000");
+		int count = 0;
+		for (int i = 1; 1 < 100000; i++) {
+			if (count >= 120000) {
+				break;
+			}
+			for (int j = i+1; j < 1000; j++) {
+				stream.println(i + " " + j);
+				count++;
+				if (count >= 120000) {
+					break;				
+				}
+			}
+		}
+		stream.println("1");
+
+		
+		stream.flush();
+		stream.close();
+	}
+}

@@ -1,0 +1,7 @@
+1537606941254	Rename type 'Factories'
+1537607051604	Rename field 'balance'
+1537607055913	Rename field 'maxWeight'
+1537607157833	Rename type 'Energy'
+1537607163698	Rename field '_cost'
+1537607174164	Rename field '_energy'
+1537607190944	Rename method 'getCost'

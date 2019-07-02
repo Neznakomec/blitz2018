@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 4 elements from project &apos;script&apos;&#x0D;&#x0A;- Original project: &apos;script&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     groovy.properties&#x0D;&#x0A;     init.sisc&#x0D;&#x0A;     js.properties&#x0D;&#x0A;     sisc.properties" description="Delete elements" element1="src/groovy.properties" element2="src/sisc.properties" element3="src/init.sisc" element4="src/js.properties" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="4" stamp="1528635760639" subPackages="false" version="1.0"/>
+</session>

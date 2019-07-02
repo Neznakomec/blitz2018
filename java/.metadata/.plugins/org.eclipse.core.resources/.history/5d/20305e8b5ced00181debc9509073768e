@@ -1,0 +1,35 @@
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+public class Solution {
+	
+	public static void main(String[] args) throws IOException {
+		System.out.println(longestCommonPrefix(new String[]{"aa","a"}));
+		
+	}
+	
+    public static String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        
+        int length = strs[0].length();
+        for (int index = 1; index < strs.length; index++) {
+            length = Math.min(length, strs[index].length());
+            for (int pos = 0; pos < length; pos++) {
+                if (strs[index].charAt(pos) != strs[0].charAt(pos)) {
+                    length = pos - 1;
+                    break;
+                }
+            }
+            
+        }
+        
+        if (length > 0) {
+            return strs[0].substring(0, length);
+        } else {
+            return "";
+        }
+    }
+}

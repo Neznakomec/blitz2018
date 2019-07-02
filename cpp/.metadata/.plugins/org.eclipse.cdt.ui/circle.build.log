@@ -1,0 +1,32 @@
+22:41:32 **** Rebuild of configuration Debug for project circle ****
+Info: Internal Builder is used for build
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
+..\main.cpp: In function 'Point lineLineIntersection(Point, Point, Point, Point)':
+..\main.cpp:39:25: warning: division by zero [-Wdiv-by-zero]
+         return Point {-1/0, -1/0};
+                       ~~^~
+..\main.cpp:39:31: warning: division by zero [-Wdiv-by-zero]
+         return Point {-1/0, -1/0};
+                             ~~^~
+..\main.cpp:39:25: warning: narrowing conversion of '(-1 / 0)' from 'int' to 'double' inside { } [-Wnarrowing]
+         return Point {-1/0, -1/0};
+                       ~~^~
+..\main.cpp:39:31: warning: narrowing conversion of '(-1 / 0)' from 'int' to 'double' inside { } [-Wnarrowing]
+         return Point {-1/0, -1/0};
+                             ~~^~
+..\main.cpp:45:26: warning: narrowing conversion of 'x' from 'long double' to 'double' inside { } [-Wnarrowing]
+         return Point{x, y};
+                          ^
+..\main.cpp:45:26: warning: narrowing conversion of 'y' from 'long double' to 'double' inside { } [-Wnarrowing]
+..\main.cpp: In function 'int main()':
+..\main.cpp:132:48: warning: narrowing conversion of 'x1' from 'long double' to 'double' inside { } [-Wnarrowing]
+  Point inter = lineLineIntersection(Point{x1,y1}, Point(x2,y2), Point(x3,y3), Point(x4,y4));
+                                                ^
+..\main.cpp:132:48: warning: narrowing conversion of 'y1' from 'long double' to 'double' inside { } [-Wnarrowing]
+..\main.cpp:88:8: warning: unused variable 'size' [-Wunused-variable]
+ double size = min(w,h)/ 2;
+        ^~~~
+g++ -o circle.exe main.o 
+
+22:41:36 Build Finished (took 3s.155ms)
+

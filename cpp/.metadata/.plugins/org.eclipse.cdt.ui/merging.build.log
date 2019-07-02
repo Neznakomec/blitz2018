@@ -1,0 +1,7 @@
+22:41:36 **** Rebuild of configuration Debug for project merging ****
+Info: Internal Builder is used for build
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o main.o "..\\main.cpp" 
+g++ -o merging.exe main.o 
+
+22:41:39 Build Finished (took 2s.664ms)
+

@@ -1,0 +1,116 @@
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <map>
+#include <math.h>
+using std::cin;
+using std::cout;
+using std::min;
+
+const double PI  =3.141592653589793238463;
+
+struct Point {
+	double x;
+	double y;
+
+	Point(double x, double y) : x(x),y(y){
+	}
+};
+
+Point lineLineIntersection(Point A, Point B, Point C, Point D)
+{
+    // Line AB represented as a1x + b1y = c1
+    double a1 = B.y - A.y;
+    double b1 = A.x - B.x;
+    double c1 = a1*(A.x) + b1*(A.y);
+
+    // Line CD represented as a2x + b2y = c2
+    double a2 = D.y - C.y;
+    double b2 = C.x - D.x;
+    double c2 = a2*(C.x)+ b2*(C.y);
+
+    double determinant = a1*b2 - a2*b1;
+
+    if (determinant == 0)
+    {
+        // The lines are parallel. This is simplified
+        // by returning a pair of FLT_MAX
+        return Point {-1, -1};
+    }
+    else
+    {
+        double x = (b2*c1 - b1*c2)/determinant;
+        double y = (a1*c2 - a2*c1)/determinant;
+        return Point{x, y};
+    }
+}
+
+
+int main() {
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "rt", stdin);
+	freopen("output.txt", "wt", stdout);
+#endif
+	double x, y, w, h;
+	cin >> x >> y >> w >> h;
+
+if (w == 0 || h == 0) {
+	for (int i = 0; i < 14; i++) {
+		cout << round(x+w/2) << " " << round(y+h/2) << " ";
+	}
+	return 0;
+}
+
+w = abs(w);
+h = abs(h);
+
+double size = min(w,h)/ 2;
+double centreX = x + w/2;
+double centreY = y + h/2;
+
+int n = 7;
+
+double radius = 2 * size / (cos(-PI/2 + 2 * PI * 2 / n) - cos(-PI/2 + 5 * PI * 2 / n));
+centreY = y + (h > w ? (h - w)/2 : 0) + (2*size) / (1+sin(-PI/2 + 2 * PI * 3 / n));
+
+double mnogx[7], mnogy[7];
+for (int i = 0; i < n; i++) {
+	double xi = centreX + radius * cos(-PI/2 + 2 * PI * i / n);
+	double yi = centreY + radius * sin(-PI/2 + 2 * PI * i / n);
+	//cout << xi << " " << yi << std::endl;
+	mnogx[i] = xi;
+	mnogy[i] = yi;
+}
+
+//cout << std::endl;
+double poperx[7], popery[7];
+for (int i = 0; i < n; i++) {
+	double x1 = mnogx[i];
+	double y1 = mnogy[i];
+	double x2 = mnogx[(i+2)%n];
+	double y2 = mnogy[(i+2)%n];
+
+	double x3 = mnogx[(i+6)%n];
+	double y3 = mnogy[(i+6)%n];
+	double x4 = mnogx[(i+1)%n];
+	double y4 = mnogy[(i+1)%n];
+	Point inter = lineLineIntersection(Point{x1,y1}, Point(x2,y2), Point(x3,y3), Point(x4,y4));
+
+	poperx[i] = inter.x;
+	popery[i] = inter.y;
+
+	//cout << inter.x << " " << inter.y << std::endl;
+}
+
+// print answer
+for (int i = 0; i < n; i++) {
+	cout << round(mnogx[i]) << " " << round(mnogy[i]) << " "
+			<< round(poperx[i]) << " " << round(popery[i]) << " ";
+	/*printf ("(%lf,%lf),(%lf,%lf),",round(mnogx[i]),round(mnogy[i]),
+			round(poperx[i]), round(popery[i]));*/
+}
+
+return 0;
+}
+
+

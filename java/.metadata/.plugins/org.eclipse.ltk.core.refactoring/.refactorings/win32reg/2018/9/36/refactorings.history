@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;Solution.java&apos; to &apos;Solution/src&apos;&#x0D;&#x0A;- Original project: &apos;win32reg&apos;&#x0D;&#x0A;- Destination element: &apos;Solution/src&apos;&#x0D;&#x0A;- Original element: &apos;win32reg.Solution.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="=Solution/src" element1="/src&lt;win32reg{Solution.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1536434018569" units="1" version="1.0"/>
+</session>

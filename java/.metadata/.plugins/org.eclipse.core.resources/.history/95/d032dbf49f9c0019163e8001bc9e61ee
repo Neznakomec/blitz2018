@@ -1,0 +1,111 @@
+import java.io.*;
+import java.util.*;
+
+public class SolutionBashni {
+	private static final int NMAX = 50;
+	private final int[] grandi = new int[NMAX+1];
+	
+	public static void main(String[] args) throws IOException {
+		new SolutionBashni().run();
+	}
+
+	private StreamTokenizer in;
+	private PrintWriter out;
+
+	int nextInt() throws IOException {
+		in.nextToken();
+		return (int) in.nval;
+	}
+
+	void run() throws IOException {
+		in = new StreamTokenizer(new BufferedReader(new FileReader("input.txt")));
+		out = new PrintWriter(new FileWriter("output.txt"));
+		solve();
+		out.flush();
+	}
+
+	void solve() throws IOException {
+		PrintPartitions h = new PrintPartitions();
+	    int N = 51;
+	    for(int i = 1; i < N; i++)
+	    {
+	        //array[0] = i;
+	        //partitions(N, 0, array, 0);
+	    	new UniquePartitions(i, h).runEnumeration();
+	    }
+		//calculateGrandiNumbers(NMAX);
+		//int n = nextInt();
+		//int m = nextInt();
+
+	}
+
+	public interface IPartitionHandler<T> {
+		void handle(List<T> partition, int size);
+	}
+	
+	public class PrintPartitions implements IPartitionHandler<Integer> {
+
+		@Override
+		public void handle(List<Integer> partition, int size) {
+			for (int i=0; i < size; i++) {
+				System.out.print(partition.get(i) + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+    private class UniquePartitions {
+    	private int number;
+    	private IPartitionHandler<Integer> handler;
+    	private List<Integer> partitionCache;
+    	public UniquePartitions(int number, IPartitionHandler<Integer> handler) {
+    		this.number = number;
+    		this.handler = handler;
+    	}
+    	
+    	public void runEnumeration() {
+    		partitionCache = new ArrayList<Integer>(Collections.nCopies(number / 2 + 1, 0));
+    	    for(int i = 1; i <= number; i++)
+    	    {
+    	        partitionCache.set(0, i);
+    	        partitions(number, 0, partitionCache, 0);
+    	    }
+    	}
+    	
+    	//https://www.oipapio.com/question-4308416
+    	private void partitions(int target, int curr, List<Integer> array, int idx)
+    	{
+    	    if (curr + array.get(idx) == target)
+    	    {
+    	    	handler.handle(array, idx + 1);
+    	        return;
+    	    }
+    	    else if (curr + array.get(idx) > target)
+    	    {
+    	        return;
+    	    }
+    	    else
+    	    {
+    	        for(int i = array.get(idx)+1; i < target; i++)
+    	        {
+    	            //array[idx+1] = i;
+    	        	array.set(idx+1, i);
+    	            partitions(target, curr + array.get(idx), array, idx+1);
+    	        }
+    	    }
+    	}
+    	
+    }
+	private void calculateGrandiNumbers(int nmax) {
+		if (nmax >= 2) {
+			grandi[1] = 0;
+			grandi[2] = 0;
+		}
+		
+		
+		for (int size = 3; size <= nmax; size++) {
+			new UniquePartitions(size, handler)
+		}
+		
+	}
+}

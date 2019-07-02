@@ -1,0 +1,27 @@
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.stream.Stream;
+
+public class Solution {
+	
+	public static void main(String[] args) throws IOException {
+		System.out.println(longestCommonPrefix(new String[]{"aa","a"}));
+		
+	}
+	
+    public static String longestCommonPrefix(String[] strs) {
+    	Stream<String> words = Stream.of("dsd", "fgdg", "aaa", "bb", "ccc");
+		int r = words.reduce(0, 
+				(total, word) -> 
+		{
+			System.out.println("call accumulator " + total + " " + word);
+			return total + word.length(); 
+		},
+				(total1, total2) -> {
+					System.out.println("call combiner " + total1 + " " + total2);
+					return total1 + total2;	
+				});
+		return String.valueOf(r);
+    }
+}
